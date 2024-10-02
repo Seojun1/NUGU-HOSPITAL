@@ -60,9 +60,9 @@ def create_weekend_all_message(message):
 
 
 # 환경변수 Settings
-load_dotenv()
-decoding = os.environ.get('API_KEY')
-url = os.environ.get("URL")
+load_dotenv(override=True)
+decoding = os.getenv('API_KEY')
+url = os.getenv('URL')
 
 def all_hospital(province, city):
     params = {
@@ -77,6 +77,7 @@ def all_hospital(province, city):
         "pageNo": "1",
         "numOfRows": "3",
     }
+
     response = requests.get(url, params=params)
 
     # Parse the XML data
