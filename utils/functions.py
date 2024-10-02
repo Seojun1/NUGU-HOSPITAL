@@ -82,58 +82,51 @@ def create_message_all(message, hospital_name, province, city):
     }
 
 
-def create_message_location(message, location_position, location_city, hospital_location):
+def create_message_location(
+    message, location_position, location_city, hospital_location
+):
     return {
         "version": "2.0",
         "resultCode": "OK",
         "output": {"location_results": str(message)},
         "directives": [
             {
-  "type": "Display.TextList4",
-  "version": "1.0",
-  "playServiceId": "{{playServiceId}}",
-  "token": "{{token}}",
-  "title": {
-    "logo": {
-      "contentDescription": "{{contentDescription}}",
-      "sources": [
-        {
-          "url": "blob:https://lordicon.com/7620b84f-be27-4b51-a3c8-f8f6a7ed0cd7"
-        }
-      ]
-    },
-    "text": {
-      "text": f"{location_position} {location_city} 병원 위치 조회"
-    }
-  },
-  "listItems": [
-    {
-      "token": "{{111}}",
-      "header": {
-        "text": hospital_location[2]
-      },
-      "body": [{
-        "text": hospital_location[0]
-      },
-    {
-        "text": f"전화번호 : {hospital_location[1]}"
-    }], 
-    },
-    {
-      "token": "{{222}}",
-      "header": {
-        "text": hospital_location[5]
-      },
-      "body": [{
-        "text": hospital_location[3],
-      },
-      {
-        "text": f"전화번호 : {hospital_location[4]}"
-
-      }],
-    },
-  ]
-}
+                "type": "Display.TextList4",
+                "version": "1.0",
+                "playServiceId": "{{playServiceId}}",
+                "token": "{{token}}",
+                "title": {
+                    "logo": {
+                        "contentDescription": "{{contentDescription}}",
+                        "sources": [
+                            {
+                                "url": "blob:https://lordicon.com/7620b84f-be27-4b51-a3c8-f8f6a7ed0cd7"
+                            }
+                        ],
+                    },
+                    "text": {"text": f"{location_position} {location_city} 병원 위치 조회"},
+                },
+                "listItems": [
+                    {
+                        "token": "{{111}}",
+                        "header": {"text": hospital_location[2]},
+                        "body": [
+                            {"text": hospital_location[0]},
+                            {"text": f"전화번호 : {hospital_location[1]}"},
+                        ],
+                    },
+                    {
+                        "token": "{{222}}",
+                        "header": {"text": hospital_location[5]},
+                        "body": [
+                            {
+                                "text": hospital_location[3],
+                            },
+                            {"text": f"전화번호 : {hospital_location[4]}"},
+                        ],
+                    },
+                ],
+            }
         ],
     }
 
@@ -313,9 +306,10 @@ def create_weekend_all_message(
 
 # 환경변수 Settings
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(BASEDIR, '.env'))
-decoding = os.environ.get('API_KEY')
-url = os.environ.get('URL')
+load_dotenv(os.path.join(BASEDIR, ".env"))
+decoding = os.environ.get("API_KEY")
+url = os.environ.get("URL")
+
 
 def all_hospital(province, city):
     params = {
